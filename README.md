@@ -1,37 +1,40 @@
 # Hyperlocal Event Discovery App
 
-A high-performance, geospatial-aware event discovery platform designed to provide personalized event recommendations based on user engagement signals. This project features a robust containerized architecture using Express.js, Typesense, and SQLite.
+A high-performance, geospatial-aware event discovery platform designed to provide personalized event recommendations based on user engagement signals. This project implements a microservices-based architecture to solve the "Cold Start" problem in event discovery.
 
-## 🚀 Architecture Overview
+---
 
-The system is designed for scalability and low-latency response times:
+## 🏗️ Architecture Overview
 
-* **Frontend:** React Native (Expo) with `FlashList` for high-performance rendering.
-* **Backend:** Node.js (Express) managing API routes and signal processing.
-* **Search & Geo-Indexing:** Typesense, providing sub-millisecond search and spatial distance filtering.
-* **Analytics:** SQLite for lightweight, persistent collection of user interaction signals.
-* **Orchestration:** Docker Compose to ensure a consistent, reproducible environment.
+The system is engineered for scalability and low-latency response times using containerized microservices:
+
+* **Frontend:** React Native (Expo) utilizing `FlashList` for optimized mobile performance.
+* **Backend:** Node.js (Express) handling RESTful API routes and signal processing.
+* **Search Engine:** Typesense, delivering sub-millisecond search and geospatial distance filtering.
+* **Data Persistence:** * **SQLite:** Stores implicit user interaction signals (dwell time, category preferences).
+    * **Typesense:** Maintains the searchable event index.
+* **Orchestration:** Docker Compose provides a consistent, production-ready environment across different development machines.
 
 
 
-## 📋 Features
+## 🚀 Key Features
 
-* **Geospatial Search:** Find events within a specified radius using Typesense geo-filtering.
-* **Implicit Personalization:** An automated recommendation engine that learns user interests through dwell-time engagement signals (5-second view trigger).
-* **Performance-First:** Optimized for smooth scrolling and rapid data retrieval using Typesense’s indexing engine.
-* **Containerized Environment:** Simple, one-command deployment using Docker Compose.
+* **Geospatial Precision:** Real-time event discovery using Typesense’s native geo-indexing.
+* **Implicit Personalization Engine:** An autonomous recommendation system that identifies user interests via engagement metrics (dwell-time signals), eliminating the need for explicit user profiling.
+* **High Performance:** Optimized for low latency and smooth UI interaction using React Native best practices.
+* **Deployability:** Full project containerization via Docker, ensuring seamless environment setup.
 
 ## 🛠️ Getting Started
 
 ### Prerequisites
 * [Docker Desktop](https://www.docker.com/products/docker-desktop/) installed.
-* [Node.js](https://nodejs.org/) (LTS version) for local development.
+* [Node.js](https://nodejs.org/) (LTS version) for local frontend development.
 
 ### Setup Instructions
 
 1.  **Clone the Repository:**
     ```bash
-    git clone <your-repository-url>
+    git clone https://github.com/sunil-polupalli/hyperlocal-event-discovery-app.git
     cd hyperlocal-event-discovery-app
     ```
 
@@ -41,28 +44,27 @@ The system is designed for scalability and low-latency response times:
     cp .env.example .env
     ```
 
-3.  **Spin Up Services:**
-    Launch the backend and search infrastructure:
+3.  **Deploy Infrastructure:**
+    Launch the backend and search services via Docker:
     ```bash
     docker-compose up -d
     ```
 
 4.  **Start Frontend:**
     ```bash
-    cd app
+    cd mobile
     npm install
     npx expo start
     ```
 
 ## 📂 Project Structure
 
-* `/app`: React Native source code (Expo).
-* `/backend`: Node.js/Express API and signal logging logic.
-* `/docs`: Technical documentation, including personalization strategy.
+* `/mobile`: React Native source code and Expo configuration.
+* `/backend`: Express.js API, signal logging logic, and recommendation algorithms.
+* `/docs`: Technical documentation and personalization strategy analysis.
 * `docker-compose.yml`: Infrastructure orchestration.
 
-## 📈 Personalization Logic
-This application avoids the "Cold Start" problem by utilizing implicit category filtering. The system aggregates user interactions stored in SQLite to determine top-performing categories, which are then passed as dynamic filters to Typesense. This provides instantaneous, privacy-first recommendations without the complexity of collaborative filtering.
+## 🧠 Personalization Engine
+This application addresses the "Cold Start" challenge through **implicit category filtering**. The system captures user view events as signals, storing them in a local SQLite database. When the "For You" feed is requested, the backend aggregates these signals to identify the user's top categories, which are then passed as dynamic filters to Typesense. This provides instantaneous, privacy-centric recommendations without the heavy computational overhead of collaborative filtering.
 
 ---
-*Built as part of an end-to-end software engineering submission.*
